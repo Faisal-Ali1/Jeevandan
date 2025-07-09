@@ -4,10 +4,10 @@ function DonerMaker({data}){
                             
                                 <img src={data?.img} className="h-50 w-40 object-cover rounded-2xl" />
                                 <div className=" self-baseline-last">
-                                    <p className="text-red-500 text-xl">{data?.bloodGroup}</p>
-                                    <p>{data?.name}</p>
+                                    <p className="text-red-500 text-xl">{data?.blood_group}</p>
+                                    <p>{data?.first_name} {data?.last_name}</p>
                                     <p>{data?.city}</p>
-                                    <p>{data?.contact}</p>
+                                    <p>{data?.phone_num}</p>
                                 </div>
                             
                            

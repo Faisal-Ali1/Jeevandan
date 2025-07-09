@@ -14,11 +14,9 @@ const donerSchema = new Schema({
         type:String,
         maxLength:20
     },
-    age:{
-        type:Number,
-        required:true,
-        min:[18 , 'you are under age'],
-        max:[60 , 'you are over age']
+    Dob:{
+        type:String,
+        required:true
     },
     gender:{
         type:String,
@@ -30,22 +28,16 @@ const donerSchema = new Schema({
         enum:[ 'O+' , 'O-' , 'A+' , 'A-' , 'B+' , 'B-' , 'AB+' , 'AB-'],
         required: true
     },
-    address:{
-        colony:{
-            type:String,
-            required: true
-        },
-        city:{
-            type:String,
-            required:true
-        },
-        state:{
-            type:String,
-            required:true
-        }
+    img:{
+        type:String,
+        default:"https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+    },
+    city:{
+        type:String,
+        required: true
     },
     phone_num:{
-        type:String,
+        type:Number,
         required:true,
         minLength:10,
         maxLength:10,

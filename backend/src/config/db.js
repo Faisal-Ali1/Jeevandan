@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 
 async function main(){
-   await  mongoose.connect('mongodb+srv://fa4492977:ali%40123@codingadda.ln0ajxn.mongodb.net/blood_donation')
+   await  mongoose.connect(process.env.MONGOOSE_CONNECTION_STRING);
 }
 
 
