@@ -3,7 +3,7 @@ const main = require('./config/db');
 const doner = require('./Models/donerSchema');
 const donerRouter = require('./Routes/donerRoute');
 const cors = require('cors');
- require('dotenv').config();
+ require('dotenv').config({quiet: true});
 const app = express();
 
 
