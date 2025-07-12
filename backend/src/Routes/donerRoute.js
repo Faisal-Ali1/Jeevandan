@@ -4,9 +4,12 @@ const donerValidate = require('../Validation/donerValidate');
 
 const donerRouter = express.Router();
 
-donerRouter.get('/profile/:number' , async(req , res) =>{
+donerRouter.post('/profile' , async(req , res) =>{
+
+    
+    const {city , blood_group} = req.body;
     try{
-        const person = await doner.findOne({_id: req.params.number});
+        const person = await doner.find({city , blood_group});
 
         if(!person)
             return res.status(404).send('user not found');

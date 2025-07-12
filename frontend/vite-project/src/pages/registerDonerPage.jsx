@@ -106,14 +106,11 @@ function RegisterDonerPage() {
         }
     } ,[ backendError])
         
-            
-        
-    
-    
 
     const submitedData = async(donerData) => {
         try {
              await axiosClient.post('/register', donerData);
+                navigate('/otp');
             alert('🎉 you have successfully got registered as a doner');
             navigate('/findadoner');
         }
@@ -127,11 +124,11 @@ function RegisterDonerPage() {
 
 
     return (
-        <div className="p-15 border">
+        <div className="min-sm:p-15 border">
             <div className="mt-20">
-                <h2 className="title text-3xl font-sans text-center font-bold underline">Doner Registration Form</h2>
+                <h2 className="title text-3xl font-sans text-center font-bold max-sm:mt-25 ">Doner Registration Form</h2>
 
-                <form onSubmit={handleSubmit(submitedData)} className=" px-20 py-10 rounded-2xl shadow-xl flex flex-col gap-5">
+                <form onSubmit={handleSubmit(submitedData)} className=" px-[10vw] py-10 rounded-2xl shadow-xl flex flex-col gap-5">
 
                     {/* first name */}
                     <div className="flex flex-col">

@@ -49,6 +49,7 @@ function Otp() {
             <div className="pt-20 h-100 ">
                 <div className="border h-50 flex flex-col items-center gap-3">
                     <h2 className=" text-2xl font-bold tracking-wide">Validate OTP</h2>
+                    <p>A 5 digit opt has been sent to your number</p>
                     <div className="flex gap-2">
                         {
                             inputBox?.map((value, index) => (
@@ -67,6 +68,8 @@ function Otp() {
                     </div>
                 </div>
             </div>
+
+            
         </>
     )
 }

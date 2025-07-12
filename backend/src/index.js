@@ -5,6 +5,7 @@ const donerRouter = require('./Routes/donerRoute');
 const cors = require('cors');
  require('dotenv').config({quiet: true});
 const app = express();
+const otpRouter = require('./Routes/otpRoute');
 
 
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors({
 
 
 app.use('/', donerRouter);
+app.use('/otp' , otpRouter);
 
 
 
