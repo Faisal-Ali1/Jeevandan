@@ -5,14 +5,22 @@ import RegisterDonerPage from "./pages/registerDonerPage"
 import FindADoner from "./pages/findADoner"
 import { NavLink } from "react-router"
 import Otp from "./components/otp"
+import {delay, motion} from 'motion/react'
 
 
 function App() {
   
  return(
   <>
-  <div className="bg-red-950 p-5 flex justify-between items-center fixed z-99 w-full">
-    <h2 className="max-sm:text-xl text-red-500 text-3xl italic font-bold">JeevanDan</h2>
+  <motion.div 
+    className="bg-red-950 p-5 flex justify-between items-center fixed z-99 w-full"
+    initial={{opacity:0}}
+    whileInView={{opacity:1, transition:{duration:1 , delay:0.5}}}>
+    
+    <motion.h2 
+      className="max-sm:text-xl text-red-500 text-3xl italic font-bold"
+      initial={{opacity:0}}
+      whileInView={{opacity:1 , transition:{duration:1 , delay:0.9}}}>JeevanDan</motion.h2>
 
      {/* Desktop view */}
     <div className="flex gap-3 max-sm:hidden">
@@ -30,7 +38,8 @@ function App() {
   </ul>
 </div>
 
-  </div>
+  </motion.div>
+
   <Routes>
     <Route path="/" element={<HomePage/>}></Route>
     <Route path="/about" element={<AboutPage/>}></Route>
@@ -38,10 +47,10 @@ function App() {
     <Route path="/findadoner" element={<FindADoner/>}></Route>
     <Route path="/otp" element={<Otp/>}></Route>
   </Routes>
-  <div className="h-70 bg-black flex flex-col items-center justify-center">
+  <div className="h-70 bg-black flex flex-col items-center justify-center text-white">
     <span>All writes are reserved © </span>
     <span>project created by </span>
-    <span>Faisal Ali || Mirza Farhan Baig || Rehan hussain</span>
+    <span>Faisal Ali</span>
 
   </div>
   </>

@@ -17,6 +17,7 @@ const formSchema = z.object({
 function FindADoner() {
 
     const [allDoner, setAllDoner] = useState(null);
+    const [btnClicked , setBtnClicked] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema)
     });
@@ -101,9 +102,12 @@ const jaipurAreas = [
     // Fetching single doner detail
     const handleDoner = async (datas) => {
         try {
-            console.log(datas);
-            const { data } = axiosClient.get('/')
+            // console.log(datas);
+            const { data } = await axiosClient.post('/profile' , datas);
+            console.log(data);
+            
             setAllDoner(data);
+            setBtnClicked(true);
         }
         catch (err) {
             console.error('Error: ', err);
@@ -114,9 +118,10 @@ const jaipurAreas = [
     return (
         <>
             <div className="pt-25">
-                <form onSubmit={handleSubmit(handleDoner)} className="  shadow-xl flex items-center gap-5">
+                <form onSubmit={handleSubmit(handleDoner)} className=" justify-center flex-col  shadow-xl flex items-center pb-5">
 
                     {/* City */}
+                    <div className=" flex gap-2 h-20">
                     <div className="flex flex-col min-h-25">
                         <label className="label mb-1">City</label>
                         <select 
@@ -151,6 +156,7 @@ const jaipurAreas = [
                         </select>
                         {errors.blood_group && <span className="text-[12px] text-red-600 ">Blood group is required*</span>}
                     </div>
+                    </div>
 
                     <button type="submit" className="btn btn-error">Submit</button>
 
@@ -159,7 +165,7 @@ const jaipurAreas = [
 
                 <div>
                     <div>
-                        <h3 className="text-center text-3xl mt-30">Our Heroes are</h3>
+                        <h3 className="text-center text-3xl mt-30">{ btnClicked ? `Our Heroes in ${allDoner[0]?.city} are` : "Our Heroes in Jaipur are"}</h3>
                         <div className="p-10 flex gap-5 flex-wrap justify-center">
                             {
                                 allDoner?.map((item, index) => <DonerMaker key={index} data={item} />)
