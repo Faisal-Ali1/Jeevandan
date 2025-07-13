@@ -26,8 +26,8 @@ function HomePage() {
                     {/* button */}
                     <motion.div
                         className="flex justify-center gap-x-5 mb-10"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1, transition: { duration: 1.5 } }}>
+                        initial={{ opacity: 0 , y:20}}
+                        whileInView={{ opacity: 1, y:0, transition: { duration: 1.5 } }}>
 
                         <NavLink to="/registerDoner" className="btn btn-error text-white">Become a doner</NavLink>
                         <NavLink to="/findadoner" className="btn btn-primary text-white">Find doner</NavLink>
@@ -39,8 +39,8 @@ function HomePage() {
 
                     <motion.div
                         className=" flex flex-col items-center"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0, transition: { duration: 1, delay: 0.5 } }}>
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}>
                         <div className="w-30 h-30 p-4 border-10 rounded-[50%] border-l-black border-red-500 flex justify-center items-center bg-pink-50 text-black">2 Million</div>
 
                         <div className="flex gap-3 items-center mt-10">
@@ -52,7 +52,7 @@ function HomePage() {
 
                     <motion.div
                         className="w-[50%]  max-sm:w-[70%] text-center"
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}>
                         <h2 className="text-2xl mb-4 font-bold">India has a shortage of <span className="text-red-500">2 Million Blood Units</span></h2>
                         <p>There is a requirement of 15 million units of blood annually. However, we are only able to collect 13 million units. We just need <span className="text-red-500">2% of India’s youth to donate regularly</span> to address the complete demand.</p>
