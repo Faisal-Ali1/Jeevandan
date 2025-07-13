@@ -4,6 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axiosClient from '../utils/axiosClient';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+
 
 // Calculating age of doner
 const calculateAage = (dob) => {
@@ -30,11 +32,11 @@ const donerSchema = z.object({
     }),
     gender: z.enum(['male', 'female']),
     blood_group: z.string().min(1, "please select a blood group"),
-    phone_num: z.string().refine((num)=>{
-        if(!isNaN(num))
+    phone_num: z.string().refine((num) => {
+        if (!isNaN(num))
             return num;
-    },{
-        message:"enter valid phone number"
+    }, {
+        message: "enter valid phone number"
     }),
     email: z.string().email('invilid email'),
     city: z.string().min(1, "place is required"),
@@ -95,22 +97,35 @@ const jaipurAreas = [
 
 function RegisterDonerPage() {
 
+    const [optSent, setOtpSent] = useState(false);
+    const [number, setNumber] = useState(null);
+    const [disableBtn, setDisableBtn] = useState(false);
+    const [otp, setOtp] = useState("");
+    const [isOtpTrue, setIsOtpTrue] = useState(false);
+    const [actualOtp, setActualOtp] = useState(null);
     const [backendError, setBackendError] = useState(null);
+
+
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(donerSchema) });
 
     useEffect(() => {
-        if(backendError?.response?.data){
+        if (backendError?.response?.data) {
             alert(backendError?.response?.data)
             setBackendError(null);
         }
-    } ,[ backendError])
-        
+    }, [backendError])
 
-    const submitedData = async(donerData) => {
+
+    // Submiting doner details
+    const submitedData = async (donerData) => {
         try {
-             await axiosClient.post('/register', donerData);
-                navigate('/otp');
+
+            if (!isOtpTrue)
+                return alert("number verification is important");
+
+            await axiosClient.post('/register', donerData);
+            // navigate('/otp');
             alert('🎉 you have successfully got registered as a doner');
             navigate('/findadoner');
         }
@@ -122,11 +137,58 @@ function RegisterDonerPage() {
 
     }
 
+    // handling otp
+    const handleOtp = () => {
+        if (!number)
+            return alert("enter mobile number first");
+
+        if (!(number.toString().length === 10))
+            return alert("phone num should be of 10 digit")
+
+        setOtpSent(true);
+        setDisableBtn(true);
+
+        let otpnumber = '';
+        for (let i = 1; i <= 6; i++) {
+            otpnumber += Math.floor(Math.random() * 6)
+        };
+
+        setActualOtp(otpnumber.trim())
+    }
+
+    // sending otp through alert
+    useEffect(() => {
+        if (actualOtp) {
+            setTimeout(() => {
+                alert(`your opt is : ${actualOtp}`);
+            }, 1000)
+        }
+    }, [actualOtp])
+
+
+    // Checking otp
+    const checkOtp = () => {
+
+        if (actualOtp == otp) {
+            console.log('phone number varified');
+            setIsOtpTrue(true)
+        } else
+            console.log('Enter valid otp');
+
+
+    }
+
 
     return (
-        <div className="min-sm:p-15 border">
+        <motion.div 
+        className="min-sm:p-15 border"
+        initial={{opacity:0}}
+        whileInView={{opacity:1 , transition:{duration:1}}}>
             <div className="mt-20">
-                <h2 className="title text-3xl font-sans text-center font-bold max-sm:mt-25 ">Doner Registration Form</h2>
+                <motion.h2 
+                className="title text-3xl font-sans text-center font-bold max-sm:mt-25 "
+                initial={{opacity:0 , y:-20}}
+                whileInView={{opacity:1 , y:0 , transition:{ duration:1} }}>Doner Registration Form</motion.h2>
 
                 <form onSubmit={handleSubmit(submitedData)} className=" px-[10vw] py-10 rounded-2xl shadow-xl flex flex-col gap-5">
 
@@ -135,20 +197,20 @@ function RegisterDonerPage() {
                         <label className="label">First name</label>
                         <input
                             type="text"
-                             {...register('first_name', { required: true })} 
-                             placeholder="John" 
-                             className="input w-[15rem]" />
+                            {...register('first_name', { required: true })}
+                            placeholder="John"
+                            className="input w-[15rem]" />
                         {errors.first_name ? <span className='text-[12px] text-red-600'>{errors.first_name.message}</span> : null}
                     </div>
 
                     {/* last name */}
                     <div className="flex flex-col">
                         <label className="label">last name</label>
-                        <input 
+                        <input
                             type="text"
                             {...register('last_name')}
-                             placeholder="kal" 
-                             className="input w-[15rem]" />
+                            placeholder="kal"
+                            className="input w-[15rem]" />
                     </div>
 
                     {/* Dob */}
@@ -181,7 +243,7 @@ function RegisterDonerPage() {
                                 />
                                 Female
                             </label>
-                            
+
                         </div>
                         {errors.gender ? <span className='text-[12px] text-red-600'>{errors.gender.message}</span> : null}
                     </div>
@@ -204,7 +266,7 @@ function RegisterDonerPage() {
                     </div>
 
                     {/* city */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col">
                         <label className="label">Area in jaipur</label>
                         <select {...register('city', { required: true })} className="select">
                             <option value="">select area</option>
@@ -218,12 +280,38 @@ function RegisterDonerPage() {
                     {/* phone_number */}
                     <div className="flex flex-col">
                         <label className="label">Phone_number</label>
-                        <input 
-                            type="text"
-                            {...register('phone_num', { required: true })}
-                             placeholder="4433221144"
-                             className="input w-[15rem]" />
+                        <div className="flex gap-3 items-center">
+                            <input
+                                type="text"
+                                {...register('phone_num', { required: true })}
+                                placeholder="4433221144"
+                                className="input w-[15rem]" onChange={(e) => setNumber(e.target.value)}
+                                disabled={disableBtn} />
+
+                            {/* Opt send/resend button */}
+                            {isOtpTrue ? (<span className="text-green-400 text-xs">Phone number has varified successfully</span>) : (<button className="btn" type="button" onClick={handleOtp}>{optSent ? 'Resend otp' : 'send otp'}</button>)}
+
+                        </div>
                         {errors.phone_num ? <span className='text-[12px] text-red-600'>{errors.phone_num.message}</span> : null}
+                        {
+                            isOtpTrue ? " " : (
+                                optSent ? (<div className="mt-2">
+                                    <p className="text-red-600 text-xs">Opt has been sent to {number}</p>
+
+                                    {/* opt box */}
+                                    <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        placeholder="Enter opt"
+                                        className="input w-30 " value={otp} onChange={(e) => setOtp(e.target.value)} />
+
+                                    {/* opt submit button */}
+                                    <button className="btn" type="button" onClick={checkOtp}>Submit</button>
+                                    </div>
+                                </div>) : ""
+                            )
+                        }
+
 
                     </div>
 
@@ -261,7 +349,7 @@ function RegisterDonerPage() {
                             />
                             <label htmlFor="no">No</label>
                         </div>
-                        { errors?.isAvailable && (<span className="text-red-600 text-xs">{errors?.isAvailable?.message}</span>)}
+                        {errors?.isAvailable && (<span className="text-red-600 text-xs">{errors?.isAvailable?.message}</span>)}
                     </div>
 
                     {/* Submit button */}
@@ -269,7 +357,7 @@ function RegisterDonerPage() {
 
                 </form>
             </div>
-        </div>
+        </motion.div>
 
 
     )
