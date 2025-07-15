@@ -26,12 +26,6 @@ function FindADoner() {
     // console.log(allDoner);
 
 
-    const submitedData = (data) => {
-        console.log(data);
-
-    }
-
-
     // Area names
     const jaipurAreas = [
         "Adarsh Nagar",
@@ -83,6 +77,7 @@ function FindADoner() {
         "Vidhyadhar Nagar"
     ];
 
+
     // Fetching all doner details
     useEffect(() => {
 
@@ -100,10 +95,15 @@ function FindADoner() {
         fetchData();
     }, []);
 
-
+let placeInJaipur = '';
     // Fetching single doner detail
     const handleDoner = async (datas) => {
+
+        placeInJaipur = datas?.city;
+        console.log(placeInJaipur);
+        
         try {
+
             const { data } = await axiosClient.post('/profile', datas);
             console.log(data);
 
@@ -171,9 +171,10 @@ function FindADoner() {
 
                 <div>
                     <div>
+                        {/* displaying area name */}
                         <motion.h3 className="text-center text-3xl mt-30"
                         initial={{opacity:0 , y:-20}}
-                        whileInView={{opacity:1 , y:0 , transition:{duration:1}}}>{btnClicked ? `Our Heroes in ${allDoner[0]?.city} are` : "Our Heroes in Jaipur are"}</motion.h3>
+                        whileInView={{opacity:1 , y:0 , transition:{duration:1}}}>{btnClicked ? `Our Heroes in ${placeInJaipur} are` : "Our Heroes in Jaipur are"}</motion.h3>
                         <div className="p-10 flex gap-5 flex-wrap justify-center">
                             {
                                 allDoner?.map((item, index) => <DonerMaker key={index} data={item} />)
