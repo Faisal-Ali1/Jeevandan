@@ -114,7 +114,7 @@ function HomePage() {
                         whileInView={{opacity:1, y:0 , transition:{duration:1.3}}}>What are <span className="text-red-500">Heroes</span> Say</motion.h3>
                     <div className="p-10 flex gap-5 flex-wrap justify-center">
                         {
-                            reviews.map(item => <ReviewsMaker data={item} />)
+                            reviews.map((item , index)=> <ReviewsMaker key={index} data={item} />)
                         }
                     </div>
                 </div>
