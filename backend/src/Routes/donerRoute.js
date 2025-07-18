@@ -37,6 +37,8 @@ donerRouter.get('/alldoner' , async(req , res)=>{
 
 donerRouter.post('/register' ,donerValidate, async(req , res)=>{
     try{
+        console.log(req.body);
+        
        const donerDetail = await doner.insertOne(req.body);
        res.status(201).send(donerDetail);
 

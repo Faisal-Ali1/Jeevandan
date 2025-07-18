@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { donerDetails } from "../assets/utils/donerDetails";
+
 import DonerMaker from "../components/donerMaker";
 import axiosClient from "../utils/axiosClient";
 import { useEffect } from "react";
@@ -19,6 +19,7 @@ function FindADoner() {
 
     const [allDoner, setAllDoner] = useState(null);
     const [btnClicked, setBtnClicked] = useState(false);
+    const [ placeInJaipur  ,setPlaceInJaipur] = useState(null);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema)
     });
@@ -95,11 +96,10 @@ function FindADoner() {
         fetchData();
     }, []);
 
-let placeInJaipur = '';
     // Fetching single doner detail
     const handleDoner = async (datas) => {
 
-        placeInJaipur = datas?.city;
+        setPlaceInJaipur(datas?.city);
         console.log(placeInJaipur);
         
         try {

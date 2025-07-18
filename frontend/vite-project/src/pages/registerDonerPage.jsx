@@ -24,6 +24,7 @@ const calculateAage = (dob) => {
 // schema validation
 const donerSchema = z.object({
     first_name: z.string().trim().min(3, "firstname is required"),
+    last_name: z.string().min(0),
     Dob: z.string().refine((dob) => {
         const age = calculateAage(dob);
         return age >= 18;
@@ -34,7 +35,7 @@ const donerSchema = z.object({
     blood_group: z.string().min(1, "please select a blood group"),
     phone_num: z.string().refine((num) => {
         if (!isNaN(num))
-            return num;
+            return num;            
     }, {
         message: "enter valid phone number"
     }),
@@ -123,9 +124,11 @@ function RegisterDonerPage() {
 
             if (!isOtpTrue)
                 return alert("number verification is important");
-
+            console.log(donerData);
+            
             await axiosClient.post('/register', donerData);
-            // navigate('/otp');
+            
+            
             alert('🎉 you have successfully got registered as a doner');
             navigate('/findadoner');
         }
@@ -170,10 +173,9 @@ function RegisterDonerPage() {
     const checkOtp = () => {
 
         if (actualOtp == otp) {
-            console.log('phone number varified');
             setIsOtpTrue(true)
         } else
-            console.log('Enter valid otp');
+            alert('Enter valid otp');
 
 
     }
