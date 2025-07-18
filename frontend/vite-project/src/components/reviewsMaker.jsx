@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 function ReviewsMaker({data}){
     return(
         <motion.div 
-        className=" rounded-2xl  p-2 bg-pink-50 text-black w-[40%] max-sm:w-[70%] flex-none hover:bg-black hover:text-white"
+        className=" rounded-2xl p-2 bg-pink-50 text-black w-[40%] flex-none hover:bg-black hover:text-white"
         initial={{ opacity:0 , x:-30}}
         whileInView={{opacity:1 , x:30 , transition:{duration:1}}}>
             

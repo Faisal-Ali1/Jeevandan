@@ -6,7 +6,7 @@ import { motion } from 'motion/react'
 function HomePage() {
     return (
         <div >
-            <div className="pt-20">
+            <div className="pt-19">
                 <motion.img
                     src="https://images.pexels.com/photos/5206975/pexels-photo-5206975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                     className="h-100 w-full object-cover "
@@ -77,7 +77,7 @@ function HomePage() {
 
                 {/* Potster  */}
                 <motion.div
-                    className="h-70 object-cover bg-[url(https://www.bloodconnect.org/img/homepage/impact.jpg)] flex justify-center items-center relative gap-[30%]"
+                    className="h-70 object-cover bg-[url(https://www.bloodconnect.org/img/homepage/impact.jpg)] flex justify-center items-center relative max-sm:flex-col sm:gap-100 border"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1, transition: { duration: 1, delay: 0.5 } }}
                 >
@@ -86,7 +86,8 @@ function HomePage() {
                         className="text-3xl absolute text-center top-5 text-white"
                         initial={{ opacity: 0, y: -20 }}
                         whileInView={{ opacity: 1, y: 0, transition: { duration: 1.5 } }}>Our Impact</motion.h3>
-
+                    
+                
                     <motion.div
                         className=" text-center mt-15 text-white"
                         initial={{ opacity: 0, x: -30 }}
@@ -96,23 +97,25 @@ function HomePage() {
                     </motion.div>
 
                     <motion.div
-                        className=" text-center mt-15 text-white"
+                        className=" text-center max-sm:mt-5 sm:mt-15 text-white"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0, transition: { duration: 1.5 } }}>
 
                         <h5 className="text-3xl">385500 +</h5>
                         <p>Lives Saved</p>
                     </motion.div>
+                    
 
                 </motion.div>
 
                 {/* FeedBack Section  */}
-                <div>
+                <div className="mt-30 mb-10">
                     <motion.h3 
-                        className="text-center text-3xl mt-30 font-bold"
+                        className="text-center text-3xl mb-6 font-bold"
                         initial={{opacity:0 , y:-30}}
                         whileInView={{opacity:1, y:0 , transition:{duration:1.3}}}>What are <span className="text-red-500">Heroes</span> Say</motion.h3>
-                    <div className="p-10 flex gap-5 flex-wrap justify-center">
+                    <div className="flex flex-wrap gap-5 sm:justify-center ">
+                        
                         {
                             reviews.map((item , index)=> <ReviewsMaker key={index} data={item} />)
                         }
