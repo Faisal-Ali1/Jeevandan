@@ -10,7 +10,7 @@ const otpRouter = require('./Routes/otpRoute');
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://jeevandan-frontend.onrender.com',
+    origin: process.env.ALLOWED_ORIGIN,
     credentials: true
 }));
 
