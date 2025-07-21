@@ -32,8 +32,10 @@ function App() {
         <div className="dropdown dropdown-end min-sm:hidden">
           <div tabIndex={0} role="button" className=""> <p className="text-3xl text-white">≡</p></div>
           <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+            <li><NavLink to="/">Home Page</NavLink></li>
             <li><NavLink to="/findadoner" className="">Find Doner</NavLink></li>
             <li><NavLink to="/registerDoner" className="">Be a doner</NavLink></li>
+            
           </ul>
         </div>
 
