@@ -177,6 +177,9 @@ function FindADoner() {
                         whileInView={{opacity:1 , y:0 , transition:{duration:1}}}>{btnClicked ? `Our Heroes in ${placeInJaipur} are` : "Our Heroes in Jaipur are"}</motion.h3>
                         <div className="p-10 flex gap-5 flex-wrap justify-center">
                             {
+                                !allDoner ? <div className="loading loading-dots loading-xl"></div>:""
+                            }
+                            {
                                 allDoner?.map((item, index) => <DonerMaker key={index} data={item} />)
                             }
                         </div>
