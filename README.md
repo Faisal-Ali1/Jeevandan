@@ -38,7 +38,7 @@ Follow these steps to set up and run Jeevandan on your local machine:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/[your-username]/jeevandan.git
+   git clone https://github.com/Faisal-Ali1/jeevandan.git
 
 2. **Set Up Backend**:
    Navigate to the backend folder
